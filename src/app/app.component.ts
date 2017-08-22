@@ -10,7 +10,7 @@ import {Movie} from './model/movie';
 export class AppComponent {
   title = 'Movies';
   movies = MOVIES;
-  selectedMovie = MOVIES[0];
+  selectedMovie: Movie;
 
   selectMovie(movie: Movie) {
     this.selectedMovie = movie;

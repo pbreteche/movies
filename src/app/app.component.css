@@ -1,0 +1,16 @@
+.movies {
+  list-style-type: none;
+  width: 30ch;
+}
+
+.movies li {
+  background-color: #EEE;
+  margin: .5em;
+  border-radius: .25em;
+  cursor: pointer;
+}
+
+.movies li.selected {
+  background-color: aquamarine;
+}
+

@@ -5,7 +5,9 @@ import {Movie} from '../model/movie';
   selector: 'app-detail',
   template: `
     <h2>{{movie.title}}</h2>
-    <p>Ce film est sorti en {{movie.year}}</p>
+    <p class="selected">
+      Ce film est sorti en <input type="text" [(ngModel)]="movie.year">
+    </p>
 `
 })
 export class DetailComponent {
