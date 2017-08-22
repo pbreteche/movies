@@ -1,0 +1,14 @@
+<h2>Ajout d'un nouveau film</h2>
+<form>
+  <div>
+    <label for="movie[title]">Titre</label>
+    <input type="text" id="movie[title]" name="title" [(ngModel)]="newMovie.title" >
+  </div>
+  <div>
+    <label for="movie[year]">Année</label>
+    <input type="text" id="movie[year]" name="year" [(ngModel)]="newMovie.year">
+  </div>
+  <button>Ajouter</button>
+</form>
+
+<p>{{newMovie | json }}</p>
