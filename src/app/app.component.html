@@ -1,10 +1,9 @@
 <h1>{{title}}</h1>
 
+<h2>Liste des films</h2>
 <ul>
   <li *ngFor="let movie of movies"> {{ movie.title}}</li>
 </ul>
 
-<!--
-<h2>{{movie.title}}</h2>
-<p>Ce film est sorti en {{movie.year}}</p>
--->
+<h2>{{selectedMovie.title}}</h2>
+<p>Ce film est sorti en {{selectedMovie.year}}</p>

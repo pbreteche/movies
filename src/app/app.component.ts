@@ -9,4 +9,5 @@ import {MOVIES} from './mock/movies';
 export class AppComponent {
   title = 'Movies';
   movies = MOVIES;
+  selectedMovie = MOVIES[0];
 }
