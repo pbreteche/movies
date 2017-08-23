@@ -15,4 +15,8 @@ export class AppComponent {
   selectMovie(movie: Movie) {
     this.selectedMovie = movie;
   }
+
+  addMovie(newMovie: Movie) {
+    this.movies.push(newMovie);
+  }
 }

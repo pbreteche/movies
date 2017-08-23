@@ -1,14 +1,18 @@
 <h2>Ajout d'un nouveau film</h2>
-<form>
+<form #movieForm="ngForm">
   <div>
+    <p [hidden]="titleModel.valid || titleModel.untouched" class="alert">
+      Vous devez saisir un titre pour votre film</p>
     <label for="movie[title]">Titre</label>
-    <input type="text" id="movie[title]" name="title" [(ngModel)]="newMovie.title" >
+    <input type="text" id="movie[title]" name="title" [(ngModel)]="newMovie.title"
+           required #titleModel="ngModel">
   </div>
   <div>
     <label for="movie[year]">Année</label>
-    <input type="text" id="movie[year]" name="year" [(ngModel)]="newMovie.year">
+    <input type="number" id="movie[year]" name="year" [(ngModel)]="newMovie.year"
+           required min="1900" [max]="currentYear" pattern="[12][0-9]{3}">
   </div>
-  <button>Ajouter</button>
+  <button [disabled]="movieForm.invalid" (click)="addMovie(); movieForm.reset()">Ajouter</button>
 </form>
 
 <p>{{newMovie | json }}</p>
