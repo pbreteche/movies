@@ -1,8 +1,11 @@
 <h2>Ajout d'un nouveau film</h2>
-<form #movieForm="ngForm">
+<form #movieForm="ngForm" (ngSubmit)="addMovie(movieForm)">
   <div>
     <p [hidden]="titleModel.valid || titleModel.untouched" class="alert">
       Vous devez saisir un titre pour votre film</p>
+    <p [hidden]="titleModel.untouched || !titleModel.errors?.required">
+      Ce champs est obligatoire
+    </p>
     <label for="movie[title]">Titre</label>
     <input type="text" id="movie[title]" name="title" [(ngModel)]="newMovie.title"
            required #titleModel="ngModel">
@@ -12,7 +15,19 @@
     <input type="number" id="movie[year]" name="year" [(ngModel)]="newMovie.year"
            required min="1900" [max]="currentYear" pattern="[12][0-9]{3}">
   </div>
-  <button [disabled]="movieForm.invalid" (click)="addMovie(); movieForm.reset()">Ajouter</button>
+  <fieldset>
+    <legend>Acteurs</legend>
+    <div *ngFor="let actor of newMovie.actors; let i = index; trackBy:trackActor">
+      <input type="text" name="actors-{{i}}"  [(ngModel)]="newMovie.actors[i]">
+    </div>
+    <div>
+      <input type="text" name="new-actor" [(ngModel)]="newActor">
+      <button type="button" (click)="addActor()">+</button>
+    </div>
+
+  </fieldset>
+
+  <button [disabled]="movieForm.invalid">Ajouter</button>
 </form>
 
 <p>{{newMovie | json }}</p>

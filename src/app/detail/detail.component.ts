@@ -6,7 +6,8 @@ import {Movie} from '../model/movie';
   template: `
     <h2>{{movie.title}}</h2>
     <p class="selected">
-      Ce film est sorti en <input type="text" [(ngModel)]="movie.year">
+      Ce film est sorti en <input type="text" [(ngModel)]="movie.year">.
+      Avec {{ movie.actors.join() }}
     </p>
 `
 })
