@@ -6,19 +6,42 @@ import {Movie} from './model/movie';
 export class InMemoryDataService implements InMemoryDbService{
   createDb() {
     const movies = [
-      new Movie('Dunkerque', 2017),
-      new Movie('Cars 3', 2017),
-      new Movie('La Planète des Singes - Suprématie', 2017),
-      new Movie('La Ligne verte ', 2000),
-      new Movie('Your Name ', 2016),
-      new Movie(' Tu ne tueras point ', 2016),
+      {
+        id: 0,
+        title: 'Dunkerque',
+        year: 2017,
+        actors: ['Fionn Whitehead', 'Mark Rylance']
+      },
+      {
+        id: 1,
+        title: 'Cars 3',
+        year: 2017,
+        actors: ['Guillaume Canet', 'Gilles Lellouche']
+      },
+      {
+        id: 2,
+        title: 'La Planète des Singes - Suprématie',
+        year:  2017,
+        actors: ['Andy Serkis', ' Woody Harrelson']
+      },
+      {
+        id: 3,
+        title: 'La Ligne verte ',
+        year: 2000,
+        actors: ['Tom Hanks', 'Michael Clarke Duncan', 'David Morse']
+      },
+      {
+        id: 4,
+        title: 'Your Name ',
+        year: 2016,
+        actors: ['Andrew Garfield']
+      },
+      {
+        id: 5,
+        title: ' Tu ne tueras point ',
+        year: 2016
+      },
     ];
-
-    movies[0].actors = ['Fionn Whitehead', 'Mark Rylance'];
-    movies[1].actors = ['Guillaume Canet', 'Gilles Lellouche'];
-    movies[2].actors = ['Andy Serkis', ' Woody Harrelson'];
-    movies[3].actors = ['Tom Hanks', 'Michael Clarke Duncan', 'David Morse'];
-    movies[4].actors = ['Andrew Garfield'];
 
     return {movies};
   }

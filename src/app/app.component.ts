@@ -3,6 +3,7 @@ import {Movie} from './model/movie';
 import {MovieRepository} from './model/movie-repository.service';
 import {API_URL_DATA} from './config/config';
 import {InjectionToken} from '@angular/core';
+import { trigger,state,style,transition,animate,keyframes } from '@angular/animations';
 
 export let API_URL = new InjectionToken('apiUrl');
 export let API_URL_ALIAS = new InjectionToken('apiUrlAlias');
@@ -29,6 +30,20 @@ let ENV = new InjectionToken('env');
         return 'dev.example.org'
       },
       deps: [ENV]}
+  ],
+  animations: [
+    trigger('movieState', [
+      state('inactive', style({
+        backgroundColor: '#eee',
+        transform: 'scale(1)'
+      })),
+      state('active',   style({
+        backgroundColor: '#cfd8dc',
+        transform: 'scale(1.1)'
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ])
   ]
 })
 export class AppComponent {
@@ -46,5 +61,9 @@ export class AppComponent {
 
   selectMovie(movie: Movie) {
     this.selectedMovie = movie;
+  }
+
+  refresh() {
+    this.movieRepository.init();
   }
 }

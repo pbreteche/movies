@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import {DetailComponent} from './detail/detail.component';
@@ -22,6 +23,7 @@ import {InMemoryDataService} from './in-memory-data.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [],

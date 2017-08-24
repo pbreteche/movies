@@ -18,4 +18,5 @@
     <input type="number" id="movie[year]" formControlName="year">
   </div>
   <button [disabled]="movieForm.invalid">Mettre à jour</button>
+  <button style="background-color:red; color: white" (click)="remove()" type="button">Supprimer</button>
 </form>

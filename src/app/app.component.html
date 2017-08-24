@@ -1,10 +1,12 @@
 <h1>{{title}}</h1>
 
 <h2>Liste des films</h2>
+<button style="background-color: aqua" (click)="refresh()">Rafraîchir</button>
 <ul class="movies">
   <li *ngFor="let movie of movies"
       (click)="selectMovie(movie)"
       [class.selected]="movie === selectedMovie"
+      [@movieState]="movie === selectedMovie ? 'active' : 'inactive'"
   >
       {{ movie.title}}
   </li>

@@ -15,9 +15,10 @@ export class MovieRepository {
     this.init();
   }
 
-  private init() {
+  init() {
     this.http.get('api/movies')
       .subscribe(response => {
+        console.debug(response);
         this.moviesData = response.json().data as Movie[];
         this.movies.next(this.moviesData);
       });
@@ -28,9 +29,9 @@ export class MovieRepository {
     this.movies.next(this.moviesData);
     return this.http.post('api/movies', movie)
       .toPromise()
-      .then(console.log)
+      .then(console.debug)
       .catch(error => {
-        console.log(error);
+        console.error(error);
         let movieIndex = this.moviesData.indexOf(movie);
         if (movieIndex !== -1) {
           this.moviesData.splice(movieIndex, 1);
@@ -38,8 +39,26 @@ export class MovieRepository {
         }
       })
   }
-  /** TODO: create delete HTTP request */
-  remove() {
+
+  remove(movie: Movie) {
+    let movieIndex = this.moviesData.indexOf(movie);
+    if (movieIndex !== -1) {
+      this.moviesData.splice(movieIndex, 1);
+      this.movies.next(this.moviesData);
+    }
+
+    return this.http.delete('api/movies/' + movie.id).subscribe(console.log)
+  }
+
+  update(movie: Movie) {
+    let movieIndex = this.moviesData.indexOf(movie);
+    if (movieIndex === -1) {
+      throw 'you cannot update an unexisting movie';
+    }
+    this.moviesData[movieIndex] = movie;
+    this.movies.next(this.moviesData);
+    this.http.put('api/movies/' + movie.id, movie)
+      .subscribe(console.log);
 
   }
 

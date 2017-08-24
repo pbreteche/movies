@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Movie} from '../model/movie';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MovieRepository} from '../model/movie-repository.service';
 
 @Component({
   selector: 'app-movie-reactive-form',
@@ -11,7 +12,7 @@ export class MovieReactiveFormComponent implements OnChanges {
   @Input() movie: Movie;
   movieForm: FormGroup;
 
-  constructor() {
+  constructor(private repository: MovieRepository) {
     this.createForm();
   }
 
@@ -30,7 +31,12 @@ export class MovieReactiveFormComponent implements OnChanges {
   updateMovie() {
     this.movie.title = this.movieForm.value.title;
     this.movie.year = this.movieForm.value.year;
+    this.repository.update(this.movie);
     this.movieForm.markAsUntouched();
   }
 
+  remove() {
+    this.repository.remove(this.movie);
+    this.movieForm.markAsUntouched();
+  }
 }
