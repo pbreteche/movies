@@ -1,0 +1,21 @@
+<h2>
+  Édition de {{ movie.title}}
+</h2>
+
+<form [formGroup]="movieForm" (ngSubmit)="updateMovie()">
+  <div>
+    <p [hidden]="!movieForm.get('title').errors?.minlength">
+      Le titre doit comporter au moins <strong>3</strong> caractères
+    </p>
+    <p [hidden]="!movieForm.get('title').errors?.required">
+      Un film digne de ce nom doit absoluement comporter un titre
+    </p>
+    <label for="movie[title]">Titre</label>
+    <input type="text" id="movie[title]" formControlName="title">
+  </div>
+  <div>
+    <label for="movie[year]">Année</label>
+    <input type="number" id="movie[year]" formControlName="year">
+  </div>
+  <button [disabled]="movieForm.invalid">Mettre à jour</button>
+</form>

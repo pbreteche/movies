@@ -1,23 +1,20 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {Movie} from '../model/movie';
 import {FormGroup} from '@angular/forms';
+import {MovieRepository} from '../model/movie-repository.service';
 
 @Component({
   selector: 'app-movie-form',
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.css']
 })
-export class MovieFormComponent implements OnInit {
+export class MovieFormComponent {
   newMovie: Movie;
-  newActor = "";
+  newActor = '';
   currentYear = new Date().getFullYear();
-  @Output() onSubmit = new EventEmitter<Movie>();
 
-  constructor() {
+  constructor(private movieRepository: MovieRepository) {
     this.newMovie = new Movie('', null);
-  }
-
-  ngOnInit() {
   }
 
   trackActor(index: number, actor: string) {
@@ -26,13 +23,13 @@ export class MovieFormComponent implements OnInit {
 
   addActor() {
     this.newMovie.actors.push(this.newActor);
-    this.newActor="";
+    this.newActor = '';
   }
 
   addMovie(movieForm: FormGroup) {
-    this.onSubmit.emit(this.newMovie);
+    this.movieRepository.movies.push(this.newMovie);
     this.newMovie = new Movie('', null);
     movieForm.reset();
-    this.newMovie.actors=[];
+    this.newMovie.actors = [];
   }
 }

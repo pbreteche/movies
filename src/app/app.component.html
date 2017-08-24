@@ -9,7 +9,8 @@
       {{ movie.title}}
   </li>
 </ul>
+<app-movie-reactive-form *ngIf="selectedMovie" [movie]="selectedMovie"></app-movie-reactive-form>
 
 <app-detail *ngIf="selectedMovie" [movie]="selectedMovie"></app-detail>
 
-<app-movie-form (onSubmit)="addMovie($event)"></app-movie-form>
+<app-movie-form></app-movie-form>

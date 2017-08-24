@@ -3,18 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {DetailComponent} from './detail/detail.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MovieFormComponent } from './movie-form/movie-form.component';
+import { MovieReactiveFormComponent } from './movie-reactive-form/movie-reactive-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DetailComponent,
-    MovieFormComponent
+    MovieFormComponent,
+    MovieReactiveFormComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
