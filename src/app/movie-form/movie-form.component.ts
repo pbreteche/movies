@@ -27,7 +27,7 @@ export class MovieFormComponent {
   }
 
   addMovie(movieForm: FormGroup) {
-    this.movieRepository.movies.push(this.newMovie);
+    this.movieRepository.add(this.newMovie);
     this.newMovie = new Movie('', null);
     movieForm.reset();
     this.newMovie.actors = [];

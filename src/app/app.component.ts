@@ -14,9 +14,9 @@ let ENV = new InjectionToken('env');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [
-  //  MovieRepository
+    MovieRepository,
   //  { provide: MovieRepository, useClass: MovieRepository },
-    { provide: MovieRepository, useValue: new MovieRepository() },
+  //  { provide: MovieRepository, useValue: new MovieRepository() },
     { provide: API_URL, useValue: API_URL_DATA },
     { provide: API_URL_ALIAS, useExisting: API_URL },
     { provide: ENV, useValue: 'prod'},
@@ -37,12 +37,11 @@ export class AppComponent {
   selectedMovie: Movie;
 
   constructor(
-    movieRepository: MovieRepository,
+    private movieRepository: MovieRepository,
     @Inject(API_URL) apiUrl,
     @Inject(API_URL_FACTORY) testFactory
   ) {
-    this.movies = movieRepository.movies;
-    console.log(testFactory);
+    movieRepository.getAll().subscribe(movies => this.movies = movies);
   }
 
   selectMovie(movie: Movie) {

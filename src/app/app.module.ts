@@ -6,6 +6,9 @@ import {DetailComponent} from './detail/detail.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MovieFormComponent } from './movie-form/movie-form.component';
 import { MovieReactiveFormComponent } from './movie-reactive-form/movie-reactive-form.component';
+import {HttpModule} from '@angular/http';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { MovieReactiveFormComponent } from './movie-reactive-form/movie-reactive
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [],
   bootstrap: [AppComponent]
