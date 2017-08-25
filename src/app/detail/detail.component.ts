@@ -11,23 +11,29 @@ import {ActivatedRoute, Params} from '@angular/router';
       Ce film est sorti en <input type="text" [(ngModel)]="movie.year">.
       Avec {{ movie.actors.join() }}
     </p>
+    <a (click)="back()">Retour à la liste</a>
 `
 })
 export class DetailComponent implements OnInit {
   private currentId: number;
   private movie: Movie;
 
-  constructor(private movieRepository: MovieRepository,
-              private currentRoute: ActivatedRoute) {
-    this.movieRepository.currentMovie.subscribe((movie: Movie) => {
-      this.movie = movie;
-    })
-  }
+  constructor(
+    private movieRepository: MovieRepository,
+    private currentRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.movieRepository.currentMovie.subscribe((movie: Movie) => {
+      this.movie = movie;
+    });
    this.currentRoute.params.subscribe((params: Params) => {
      this.currentId = +params['id'];
      this.movieRepository.setCurrentId(this.currentId);
     })
+  }
+
+  back() {
+    history.back();
   }
 }

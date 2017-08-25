@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Movie} from '../model/movie';
 import {FormGroup} from '@angular/forms';
 import {MovieRepository} from '../model/movie-repository.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-movie-form',
@@ -13,7 +14,10 @@ export class MovieFormComponent {
   newActor = '';
   currentYear = new Date().getFullYear();
 
-  constructor(private movieRepository: MovieRepository) {
+  constructor(
+    private movieRepository: MovieRepository,
+    private router: Router
+  ) {
     this.newMovie = new Movie('', null);
   }
 
@@ -27,7 +31,11 @@ export class MovieFormComponent {
   }
 
   addMovie(movieForm: FormGroup) {
-    this.movieRepository.add(this.newMovie);
+    this.movieRepository.add(this.newMovie).then(
+      (movie: Movie) => {
+        this.router.navigate(['/catalog', movie.id]);
+      }
+    );
     this.newMovie = new Movie('', null);
     movieForm.reset();
     this.newMovie.actors = [];

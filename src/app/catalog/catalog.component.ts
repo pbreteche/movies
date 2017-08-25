@@ -10,7 +10,6 @@ import {MovieRepository} from '../model/movie-repository.service';
 export class CatalogComponent implements OnInit {
   title = 'Movies';
   movies: Movie[] = [];
-  selectedMovie: Movie;
 
   constructor(
     private movieRepository: MovieRepository

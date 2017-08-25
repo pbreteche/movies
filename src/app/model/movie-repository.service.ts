@@ -31,19 +31,15 @@ export class MovieRepository {
   }
 
   add(movie: Movie) {
-    this.moviesData.push(movie);
-    this.movies.next(this.moviesData);
     return this.http.post('api/movies', movie)
       .toPromise()
-      .then(console.debug)
-      .catch(error => {
-        console.error(error);
-        let movieIndex = this.moviesData.indexOf(movie);
-        if (movieIndex !== -1) {
-          this.moviesData.splice(movieIndex, 1);
-          this.movies.next(this.moviesData);
-        }
+      .then(response => {
+        let movie = response.json().data as Movie;
+        this.moviesData.push(movie);
+        this.movies.next(this.moviesData);
+        return movie;
       })
+      .catch(console.error)
   }
 
   setCurrentId(id: number) {

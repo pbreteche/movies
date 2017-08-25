@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {CatalogComponent} from './catalog/catalog.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MovieRepository} from './model/movie-repository.service';
+import {AuthGuard} from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -34,12 +35,15 @@ import {MovieRepository} from './model/movie-repository.service';
     RouterModule.forRoot([
       { path: 'dashboard', component: DashboardComponent},
       { path: 'catalog', component: CatalogComponent},
+      { path: 'catalog/add', component: MovieFormComponent, canActivate: [AuthGuard]},
       { path: 'catalog/:id', component: DetailComponent},
+      { path: 'catalog/:id/edit', component: MovieReactiveFormComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ])
   ],
   providers: [
-    MovieRepository
+    MovieRepository,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -2,11 +2,9 @@
 
 <h2>Liste des films</h2>
 <button style="background-color: aqua" (click)="refresh()">Rafraîchir</button>
+<a routerLink="add">Ajouter un nouveau film</a>
 <ul class="movies">
-  <li *ngFor="let movie of movies"
-      [class.selected]="movie === selectedMovie"
-      [@movieState]="movie === selectedMovie ? 'active' : 'inactive'"
-  >
+  <li *ngFor="let movie of movies">
     <a [routerLink]="[movie.id]">{{ movie.title}}</a>
   </li>
 </ul>
