@@ -7,11 +7,14 @@ import {Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class MovieRepository {
-  moviesData: Movie[];
+  moviesData: Movie[] = [];
   movies: Subject<Movie[]>;
+  currentMovie: Subject<Movie>;
+  private id = -1;
 
   constructor(private http: Http) {
     this.movies = new Subject<Movie[]>();
+    this.currentMovie = new Subject<Movie>();
     this.init();
   }
 
@@ -21,6 +24,9 @@ export class MovieRepository {
         console.debug(response);
         this.moviesData = response.json().data as Movie[];
         this.movies.next(this.moviesData);
+        if (this.id !== -1) {
+          this.currentMovie.next(this.findById(this.id));
+        }
       });
   }
 
@@ -38,6 +44,21 @@ export class MovieRepository {
           this.movies.next(this.moviesData);
         }
       })
+  }
+
+  setCurrentId(id: number) {
+    this.id = id;
+    this.currentMovie.next(this.findById(id));
+  }
+
+  private findById(id: number) {
+    for(let movie of this.moviesData) {
+      console.debug(movie);
+      if (movie.id === id) {
+        return movie;
+      }
+    }
+    return new Movie('Loading...', 2017);
   }
 
   remove(movie: Movie) {
@@ -60,9 +81,5 @@ export class MovieRepository {
     this.http.put('api/movies/' + movie.id, movie)
       .subscribe(console.log);
 
-  }
-
-  getAll(): Observable<Movie[]> {
-    return Observable.from(this.movies);
   }
 }

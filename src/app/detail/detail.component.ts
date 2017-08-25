@@ -1,5 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Movie} from '../model/movie';
+import {MovieRepository} from '../model/movie-repository.service';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -11,7 +13,21 @@ import {Movie} from '../model/movie';
     </p>
 `
 })
-export class DetailComponent {
-  @Input() movie: Movie;
-}
+export class DetailComponent implements OnInit {
+  private currentId: number;
+  private movie: Movie;
 
+  constructor(private movieRepository: MovieRepository,
+              private currentRoute: ActivatedRoute) {
+    this.movieRepository.currentMovie.subscribe((movie: Movie) => {
+      this.movie = movie;
+    })
+  }
+
+  ngOnInit(): void {
+   this.currentRoute.params.subscribe((params: Params) => {
+     this.currentId = +params['id'];
+     this.movieRepository.setCurrentId(this.currentId);
+    })
+  }
+}

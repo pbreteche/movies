@@ -4,15 +4,9 @@
 <button style="background-color: aqua" (click)="refresh()">Rafraîchir</button>
 <ul class="movies">
   <li *ngFor="let movie of movies"
-      (click)="selectMovie(movie)"
       [class.selected]="movie === selectedMovie"
       [@movieState]="movie === selectedMovie ? 'active' : 'inactive'"
   >
-      {{ movie.title}}
+    <a [routerLink]="[movie.id]">{{ movie.title}}</a>
   </li>
 </ul>
-<app-movie-reactive-form *ngIf="selectedMovie" [movie]="selectedMovie"></app-movie-reactive-form>
-
-<app-detail *ngIf="selectedMovie" [movie]="selectedMovie"></app-detail>
-
-<app-movie-form></app-movie-form>
